@@ -11,4 +11,6 @@ Nginx-Plus - https://docs.nginx.com/nginx/admin-guide/installing-nginx/installin
 Once the Oracle Database and NodeJS are running - add the module and associated healthcheck code. 
 Nginx-Plus can then be configured to query the NodeJS healthcheck as an active HTTP check.
 
-Sample configuerations provided.
+Example load balancing done with Nginx-Plus Active Health Check. (oracle.conf - needs include in stream context on nginx.conf)
+
+Sample configurations provided.
