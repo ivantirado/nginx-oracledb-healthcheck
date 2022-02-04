@@ -1,20 +1,26 @@
+var oracledb = require('oracledb');
 var http = require('http');
 var output = 0;
-
+ 
   async function run() {
-������let connection = await oracledb.getConnection( {
-������user : [USERNAME],
-������password : [PASSWORD],
-������connectString : "[HOST]:[PORT]/[SERVICE]" // Example: localhost:1521/XEPDB1
+      let connection = await oracledb.getConnection( {
+      user : "nginx",
+      password : "nginx",
+      connectString : "localhost:1521/XEPDB1" // localhost:1521/XEPDB1
     });
-    let result = await connection.execute("SELECT [FIELD] FROM [TABLE]"); // Substitute query appropriately 
-    output = String(result.rows[0]);
-  }
+    let result = await connection.execute("SELECT status FROM nginx");
 
+    if (result.rows[0] == 1) {
+       output = "SERVERUP";
+    } else {
+       output = "SERVERDOWN";
+    };
+  }
+ 
   run();
 
 http.createServer(function (req, res) {
-  res.write(output);
-  res.end();
+  res.write(output); //write a response to the client
+  res.end(); //end the response
   run();
-}).listen([PORT]); // Substitute [PORT] for the desired listening port
+}).listen(8080); //the server object listens on port 8080
